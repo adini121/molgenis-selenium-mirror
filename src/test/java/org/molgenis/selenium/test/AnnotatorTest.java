@@ -6,7 +6,7 @@ import org.molgenis.data.rest.client.MolgenisClient;
 import org.molgenis.selenium.model.AnnotatorModel;
 import org.molgenis.selenium.util.RestApiV1Util;
 import org.molgenis.selenium.util.SignUtil;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,13 +16,15 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.net.MalformedURLException;
+
 @ContextConfiguration(classes = JenkinsConfig.class)
 public class AnnotatorTest extends AbstractTestNGSpringContextTests
 {
 	private static final Logger LOG = LoggerFactory.getLogger(AnnotatorTest.class);
 
 	private AnnotatorModel model;
-	private WebDriver driver;
+	private RemoteWebDriver driver;
 
 	@Value("${test.baseurl}")
 	private String baseURL;
@@ -34,8 +36,7 @@ public class AnnotatorTest extends AbstractTestNGSpringContextTests
 	private String pwd;
 
 	@BeforeClass
-	public void beforeSuite() throws InterruptedException
-	{
+	public void beforeSuite() throws InterruptedException, MalformedURLException {
 		MolgenisClient molgenisClient = RestApiV1Util.createMolgenisClientApiV1(baseURL, LOG);
 		this.driver = DriverType.FIREFOX.getDriver();
 		this.model = new AnnotatorModel(driver, molgenisClient, RestApiV1Util.loginRestApiV1(molgenisClient, uid, pwd,

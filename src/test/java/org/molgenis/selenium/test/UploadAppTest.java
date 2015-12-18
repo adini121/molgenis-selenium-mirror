@@ -1,7 +1,5 @@
 package org.molgenis.selenium.test;
 
-import java.io.IOException;
-
 import org.molgenis.DriverType;
 import org.molgenis.JenkinsConfig;
 import org.molgenis.data.rest.client.MolgenisClient;
@@ -9,7 +7,7 @@ import org.molgenis.selenium.model.UploadAppModel;
 import org.molgenis.selenium.model.UploadAppModel.EntitiesOptions;
 import org.molgenis.selenium.util.RestApiV1Util;
 import org.molgenis.selenium.util.SignUtil;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,11 +17,14 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+
 @ContextConfiguration(classes = JenkinsConfig.class)
 public class UploadAppTest extends AbstractTestNGSpringContextTests
 {
 	private static final Logger LOG = LoggerFactory.getLogger(UploadAppTest.class);
-	private WebDriver driver;
+	private RemoteWebDriver driver;
 	private UploadAppModel model;
 	
 	@Value("${test.baseurl}")
@@ -36,8 +37,7 @@ public class UploadAppTest extends AbstractTestNGSpringContextTests
 	private String pwd;
 
 	@BeforeClass
-	public void beforeClass() throws InterruptedException
-	{
+	public void beforeClass() throws InterruptedException, MalformedURLException {
 		this.driver = DriverType.FIREFOX.getDriver();
 		MolgenisClient molgenisClient = RestApiV1Util.createMolgenisClientApiV1(baseURL, LOG);
 		this.model = new UploadAppModel(driver, molgenisClient);

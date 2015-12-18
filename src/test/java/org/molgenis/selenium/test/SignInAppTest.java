@@ -3,7 +3,7 @@ package org.molgenis.selenium.test;
 import org.molgenis.DriverType;
 import org.molgenis.JenkinsConfig;
 import org.molgenis.selenium.model.SignInAppModel;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,11 +14,13 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.net.MalformedURLException;
+
 @ContextConfiguration(classes = JenkinsConfig.class)
 public class SignInAppTest extends AbstractTestNGSpringContextTests
 {
 	private static final Logger LOG = LoggerFactory.getLogger(AnnotatorTest.class);
-	private WebDriver driver;
+	private RemoteWebDriver driver;
 	private SignInAppModel model;
 
 	@Value("${test.baseurl}")
@@ -31,8 +33,7 @@ public class SignInAppTest extends AbstractTestNGSpringContextTests
 	private String pwd;
 
 	@BeforeClass
-	public void beforeSuite() throws InterruptedException
-	{
+	public void beforeSuite() throws InterruptedException, MalformedURLException {
 		driver = DriverType.FIREFOX.getDriver();
 		model = new SignInAppModel(driver);
 	}
