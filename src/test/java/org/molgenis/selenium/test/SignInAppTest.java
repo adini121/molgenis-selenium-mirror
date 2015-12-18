@@ -14,6 +14,8 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.net.MalformedURLException;
+
 @ContextConfiguration(classes = JenkinsConfig.class)
 public class SignInAppTest extends AbstractTestNGSpringContextTests
 {
@@ -31,8 +33,7 @@ public class SignInAppTest extends AbstractTestNGSpringContextTests
 	private String pwd;
 
 	@BeforeClass
-	public void beforeSuite() throws InterruptedException
-	{
+	public void beforeSuite() throws InterruptedException, MalformedURLException {
 		driver = DriverType.FIREFOX.getDriver();
 		model = new SignInAppModel(driver);
 	}

@@ -1,8 +1,5 @@
 package org.molgenis.selenium.test;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.molgenis.DriverType;
 import org.molgenis.JenkinsConfig;
 import org.molgenis.data.rest.client.MolgenisClient;
@@ -23,6 +20,10 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.net.MalformedURLException;
+import java.util.Arrays;
+import java.util.List;
+
 @ContextConfiguration(classes = JenkinsConfig.class)
 public class DataExplorerAppTest extends AbstractTestNGSpringContextTests
 {
@@ -41,8 +42,7 @@ public class DataExplorerAppTest extends AbstractTestNGSpringContextTests
 	private String pwd;
 
 	@BeforeClass
-	public void beforeClass() throws InterruptedException
-	{
+	public void beforeClass() throws InterruptedException, MalformedURLException {
 		this.driver = DriverType.FIREFOX.getDriver();
 		this.model = new DataExplorerAppModel(this.driver);
 		MolgenisClient molgenisClient = RestApiV1Util.createMolgenisClientApiV1(baseURL, LOG);

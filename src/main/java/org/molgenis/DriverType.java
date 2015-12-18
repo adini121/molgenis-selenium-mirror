@@ -1,10 +1,11 @@
 package org.molgenis;
 
-import java.util.concurrent.TimeUnit;
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 public enum DriverType implements DriverSetup
 {
@@ -14,13 +15,16 @@ public enum DriverType implements DriverSetup
 		@Override
 		public DesiredCapabilities getDesiredCapabilities()
 		{
-			return DesiredCapabilities.firefox();
+//			return DesiredCapabilities.firefox();
+			DesiredCapabilities cap = new DesiredCapabilities();
+			cap.setBrowserName("firefox");
+			cap.setJavascriptEnabled(true);
+			return cap;
 		}
 
 		@Override
-		public WebDriver getWebDriverInstance(DesiredCapabilities capabilities)
-		{
-			FirefoxDriver driver = new FirefoxDriver(capabilities);
+		public RemoteWebDriver getWebDriverInstance(DesiredCapabilities cap) throws MalformedURLException {
+			RemoteWebDriver driver = new RemoteWebDriver(new URL("http://0.0.0.0:4444/wd/hub"), cap);
 			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			return driver;
 		}
@@ -28,9 +32,8 @@ public enum DriverType implements DriverSetup
 
 	public static final DriverType DEFAULT_DRIVERTYPE = FIREFOX;
 
-	public WebDriver getDriver()
-	{
-		WebDriver driver = getWebDriverInstance(getDesiredCapabilities());
+	public RemoteWebDriver getDriver() throws MalformedURLException {
+		RemoteWebDriver driver = getWebDriverInstance(getDesiredCapabilities());
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		return driver;
 	}
