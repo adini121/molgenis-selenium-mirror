@@ -13,18 +13,18 @@ public enum DriverType implements DriverSetup
 	FIREFOX
 	{
 		@Override
-		public DesiredCapabilities getDesiredCapabilities()
-		{
+		public DesiredCapabilities getDesiredCapabilities() throws MalformedURLException {
 //			return DesiredCapabilities.firefox();
-			DesiredCapabilities cap = new DesiredCapabilities();
-			cap.setBrowserName("firefox");
-			cap.setJavascriptEnabled(true);
-			return cap;
+			DesiredCapabilities capabilities = new DesiredCapabilities();
+			capabilities.setBrowserName("firefox");
+
+			return capabilities;
+
 		}
 
 		@Override
-		public RemoteWebDriver getWebDriverInstance(DesiredCapabilities cap) throws MalformedURLException {
-			RemoteWebDriver driver = new RemoteWebDriver(new URL("http://0.0.0.0:4444/wd/hub"), cap);
+		public RemoteWebDriver getWebDriverInstance(DesiredCapabilities capabilities) throws MalformedURLException {
+			RemoteWebDriver driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
 			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			return driver;
 		}
@@ -35,6 +35,7 @@ public enum DriverType implements DriverSetup
 	public RemoteWebDriver getDriver() throws MalformedURLException {
 		RemoteWebDriver driver = getWebDriverInstance(getDesiredCapabilities());
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
 		return driver;
 	}
 }
