@@ -25,7 +25,7 @@ public enum DriverType implements DriverSetup
 
 		@Override
 		public RemoteWebDriver getWebDriverInstance(DesiredCapabilities capabilities) throws MalformedURLException {
-			RemoteWebDriver driver = new RemoteWebDriver(new URL("http://localhost:9999/wd/hub"), capabilities);
+			RemoteWebDriver driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capabilities);
 			driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 			return driver;
 		}
