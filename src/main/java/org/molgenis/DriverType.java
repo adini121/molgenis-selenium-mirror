@@ -18,8 +18,11 @@ public enum DriverType implements DriverSetup
 		{
 //			return DesiredCapabilities.firefox();
 			DesiredCapabilities capabilities = new DesiredCapabilities();
-			capabilities.setBrowserName("firefox");
-			capabilities.setJavascriptEnabled(true);
+			capabilities.setCapability("browser", "PHANTOMJS_198_MACOS_10.11_64");
+			capabilities.setCapability("apikey", "c717c5b3-a307-461e-84ea-1232d44cde89");
+			capabilities.setCapability("email", "test@testfabrik.com");
+			capabilities.setCapability("record", false);
+			capabilities.setCapability("extract", false);
 			return capabilities;
 		}
 
