@@ -1,10 +1,10 @@
 package org.molgenis;
 
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+
+import java.util.concurrent.TimeUnit;
 
 public enum DriverType implements DriverSetup
 {
@@ -14,7 +14,10 @@ public enum DriverType implements DriverSetup
 		@Override
 		public DesiredCapabilities getDesiredCapabilities()
 		{
-			return DesiredCapabilities.firefox();
+//			return DesiredCapabilities.firefox();
+			DesiredCapabilities capabilities = new DesiredCapabilities();
+			capabilities.setBrowserName("firefox");
+			return capabilities;
 		}
 
 		@Override
