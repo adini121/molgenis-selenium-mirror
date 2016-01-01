@@ -8,5 +8,5 @@ import java.net.MalformedURLException;
 public interface DriverSetup
 {
 	RemoteWebDriver getWebDriverInstance(DesiredCapabilities desiredCapabilities) throws MalformedURLException;
-	DesiredCapabilities getDesiredCapabilities() throws MalformedURLException;
+	DesiredCapabilities getDesiredCapabilities();
 }
