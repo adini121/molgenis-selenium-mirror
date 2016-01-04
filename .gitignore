@@ -1,6 +1,8 @@
+molgenis-selenium.iml
 target/
 /bin/
 /test-output/
 .project
 .classpath
 .settings
+.idea/
